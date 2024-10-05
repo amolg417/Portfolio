@@ -22,26 +22,26 @@ const Contact = () => {
   const ref = useRef();
   const formRef = useRef();
   const [error, setError] = useState(false);
+  const [name,setName]=useState("")
   const [success, setSuccess] = useState(false);
 
   const isInView = useInView(ref, { margin: "-100px" });
 
   const sendEmail = (e) => {
     e.preventDefault();
-
     emailjs
       .sendForm(
-        "service_94y20xo",
-        "template_v10u2oh",
+        "service_fne2hg6",
+        "template_6ggdzae",
         formRef.current,
-        "pX_2hasGmGcuvjXIW"
+        "Apv6ED1AiP6V5iIzZ"
       )
       .then(
         (result) => {
           setSuccess(true)
         },
         (error) => {
-          setError(true);
+          setError(error.message);
         }
       );
   };
@@ -106,12 +106,12 @@ const Contact = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 4, duration: 1 }}
         >
-          <input type="text" required placeholder="Name" name="name"/>
+          <input type="text" required placeholder="Name" name="name" onChange={(e)=>setName(e.target.value)}/>
           <input type="email" required placeholder="Email" name="email"/>
           <textarea rows={8} placeholder="Message" name="message"/>
           <button>Submit</button>
-          {error && "Error"}
-          {success && "Success"}
+          {error && <span>{error}</span>}
+          {success && <span>Hi {name}, I'll respond to you soon</span>}
         </motion.form>
       </div>
     </motion.div>
